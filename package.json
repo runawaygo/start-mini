@@ -1,0 +1,14 @@
+{
+	"name": "node-todo-example",
+	"version": "0.0.1",
+	"scripts": {
+    "preinstall": "npm install -g coffee-script  js2coffee node-dev mocha less"
+  },
+	"dependencies": {
+		"connect":"",
+		"coffee-script":"",
+		"socket.io":"",
+		"mocha":"",
+		"should":""
+	}
+}
