@@ -23,6 +23,7 @@ module.exports = (grunt) ->
               "app/init.js",
               "app/view/LeftPanel.js",
               "app/view/RightPanel.js",
+              "app/view/Header.js",
               "app/app.js"]
               
         dest: "dist/<%= pkg.name %>.js"

@@ -15,7 +15,7 @@
       },
       concat: {
         dist: {
-          src: ["lib/jquery.js", "lib/underscore.js", "lib/backbone.js", "lib/less-1.3.1.js", "lib/bootstrap/js/bootstrap.js", "app/init.js", "app/view/LeftPanel.js", "app/view/RightPanel.js", "app/app.js"],
+          src: ["lib/jquery.js", "lib/underscore.js", "lib/backbone.js", "lib/less-1.3.1.js", "lib/bootstrap/js/bootstrap.js", "app/init.js", "app/view/LeftPanel.js", "app/view/RightPanel.js", "app/view/Header.js", "app/app.js"],
           dest: "dist/<%= pkg.name %>.js"
         }
       },
