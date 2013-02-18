@@ -3,7 +3,7 @@ module.exports = (grunt) ->
   
   # Project configuration.
   grunt.initConfig
-    pkg: "<json:package.json>"
+    pkg: grunt.file.readJSON('package.json')
     meta:
       banner: "/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - " + "<%= grunt.template.today(\"yyyy-mm-dd\") %>\n" + "<%= pkg.homepage ? \"* \" + pkg.homepage + \"\n\" : \"\" %>" + "* Copyright (c) <%= grunt.template.today(\"yyyy\") %> <%= pkg.author.name %>;" + " Licensed <%= _.pluck(pkg.licenses, \"type\").join(\", \") %> */"
 
@@ -12,31 +12,11 @@ module.exports = (grunt) ->
 
     qunit:
       files: ["test/**/*.html"]
-
-    concat:
-      dist:
-        src: ["lib/jquery.js",
-              "lib/underscore.js",
-              "lib/backbone.js",
-              "lib/less-1.3.1.js",
-              "lib/bootstrap/js/bootstrap.js",
-              "app/init.js",
-              "app/view/LeftPanel.js",
-              "app/view/RightPanel.js",
-              "app/view/Header.js",
-              "app/app.js"]
-              
-        dest: "dist/<%= pkg.name %>.js"
-
-    min:
-      dist:
-        src: ["<banner:meta.banner>", "<config:concat.dist.dest>"]
-        dest: "dist/<%= pkg.name %>.min.js"
-
     watch:
       files: "<config:lint.files>"
       tasks: "lint qunit"
-
+    lessless:
+      buildDir: '.'
     jshint:
       options:
         curly: true
@@ -53,8 +33,20 @@ module.exports = (grunt) ->
 
       globals: {}
 
-    uglify: {}
+    useminPrepare:
+      html: 'index.html'
+    usemin:
+      html: ['index.html']
+      # css: ['**/*.css']
+      options:
+        dirs: ['temp', 'dist']
+        dest:'superwolf'
 
+  grunt.loadNpmTasks 'grunt-contrib-less'
+  grunt.loadNpmTasks 'grunt-contrib-concat'
+  grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-usemin'
+  grunt.loadNpmTasks 'grunt-lessless'
   
   # Default task.
-  grunt.registerTask "default", "lint qunit concat min"
+  grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin"]

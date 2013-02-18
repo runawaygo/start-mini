@@ -1,0 +1,21 @@
+CACHE MANIFEST
+
+# VERSION 0.1.5
+
+# 直接缓存的文件
+CACHE:
+lib/jquery.js
+lib/underscore.js
+lib/backbone.js
+lib/bootstrap/js/bootstrap.js
+lib/jquery.tmpl.js
+app/init.js
+app/model/Blog.js
+app/view/BlogView.js
+app/view/LeftPanel.js
+app/view/RightPanel.js
+app/app.js
+
+# 需要在时间在线的文件
+NETWORK:
+*
