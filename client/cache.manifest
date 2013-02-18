@@ -1,0 +1,7 @@
+CACHE MANIFEST
+CACHE:
+dist/star.min.js
+dist/star.css
+
+NETWORK:
+*
