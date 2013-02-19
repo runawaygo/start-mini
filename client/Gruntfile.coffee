@@ -41,12 +41,32 @@ module.exports = (grunt) ->
       options:
         dirs: ['temp', 'dist']
         dest:'superwolf'
+    oversprite:
+      all:
+        spritelist: [
+          {
+            'src': [ 'imgs/*.png' ],
+            'dest': 'dist/sprite.png'
+            'algorithm': 'alt-diagonal'
+            'engine': 'gm'
+            'exportOpts': 
+              'format': 'png'
+              'quality': 90
+          }
+        ]
+        csslist: [
+          {
+            'src':  'star.css',
+            'dest': 'star.sprite.css',
+            'base': 'dist/'
+          }
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-usemin'
   grunt.loadNpmTasks 'grunt-lessless'
+  grunt.loadNpmTasks 'grunt-oversprite'
   
   # Default task.
-  grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin"]
+  grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin","oversprite"]
