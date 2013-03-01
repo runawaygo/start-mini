@@ -41,25 +41,11 @@ module.exports = (grunt) ->
       options:
         dirs: ['temp', 'dist']
         dest:'superwolf'
-    oversprite:
-      all:
-        spritelist: [
-          {
-            'src': [ 'imgs/*.png' ],
-            'dest': 'dist/sprite.png'
-            'algorithm': 'alt-diagonal'
-            'engine': 'gm'
-            'exportOpts': 
-              'format': 'png'
-              'quality': 90
-          }
+    copy:
+      main:
+        files:[
+          {src:['imgs/*'], dest:'dest/imgs/'}
         ]
-        csslist: [
-          {
-            'src':  'star.css',
-            'dest': 'star.sprite.css',
-            'base': 'dist/'
-          }
 
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-concat'
@@ -67,6 +53,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-usemin'
   grunt.loadNpmTasks 'grunt-lessless'
   grunt.loadNpmTasks 'grunt-oversprite'
+  grunt.loadNpmTasks 'grunt-contrib-copy'
   
   # Default task.
-  grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin","oversprite"]
+  # grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin","oversprite"]
+  grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin", 'copy']

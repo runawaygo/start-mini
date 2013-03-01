@@ -1,7 +1,6 @@
-class Star.LeftPanel extends Backbone.View
+Star.LeftPanel = Backbone.View.extend
   el: $("#left-panel")    
   initialize:(@option)->
-    super(@option)
   events:
     "click a":'onNavItemlick'
   onNavItemlick:(e)=>

@@ -1,9 +1,21 @@
-class Star.Blog extends Backbone.Model
+Star.Blog = Backbone.Model.extend({})
 
-class Star.BlogCollection extends Backbone.Collection
+Star.BlogCollection = Backbone.Collection.extend
   model: Star.Blog
-  sync:(method, collection, options)->
-    if method is "read"
-      $.getJSON('/news',(data)->
-        options.success(collection, data.channel.item, options)
-      )
+  url: '/blogs'
+  pageSize:3
+  refresh:->
+    @fetch
+      update: false
+      data:
+        pageSize: @pageSize
+
+  more:->
+    @fetch
+      update: true
+      add:true
+      merge:true
+      remove:false
+      data:
+        pageSize: @pageSize
+        lastId: @length

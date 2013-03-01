@@ -1,4 +1,4 @@
-class Star.BlogView extends Backbone.View
+Star.BlogView = Backbone.View.extend
   tagName:'section'
   template:'''
       <h1>${title}</h1>
@@ -6,22 +6,39 @@ class Star.BlogView extends Backbone.View
   '''
   events:
     'click h1': "removeSelf"
-  removeSelf:=>
+  removeSelf:->
+    @model.destroy()
     @remove()
-  render:=>
+  render:->
     @$el.html($.tmpl(@template, @model.toJSON()))
     @
 
-class Star.BlogListView extends Backbone.View
+Star.BlogListView = Backbone.View.extend
   tagName:'div'
+  template:'''
+    <div class="btn btn-primary" id="btn-more">5 more</div>
+    <div class="content"></div>
+    <div class="btn btn-primary" id="btn-refresh">Refresh</div>
+  '''
+  events:
+    'click #btn-more':'more'
+    'click #btn-refresh':'refresh'
   initialize:(@options)->
     @model = Star.blogCollection
-    @model.on('reset', @addAll)
-  addAll:=>
-    @model.each(@addOne)
+    @listenTo(@model, 'reset', @addAll)
+    @listenTo(@model, 'add', @addOne)
+    @model.refresh()
     @
-  addOne:(model)=>
-    @$el.append(new Star.BlogView({model:model}).render().el)
+  addAll:->
+    @$content.html('')
+    @model.each(@addOne, @)
     @
-  render:=>
+  addOne:(model)->
+    @$content.prepend(new Star.BlogView({model:model}).render().el)
+    @
+  more:-> @model.more()
+  refresh:-> @model.refresh()
+  render:->
+    @$el.html(@template)
+    @$content = @$el.find('.content')
     @
