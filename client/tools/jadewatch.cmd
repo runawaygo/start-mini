@@ -1,1 +1,1 @@
-jade -w ../index.jade
+jade -P -w ../index.jade

@@ -15,8 +15,28 @@ module.exports = (grunt) ->
     watch:
       files: "<config:lint.files>"
       tasks: "lint qunit"
-    lessless:
-      buildDir: '.'
+    jade: 
+      compile: 
+        options: 
+          data: 
+            debug: false
+          pretty: true
+        files: 
+          "index.html": "index.jade"
+    coffee:
+      options:
+        bare: true
+      glob_to_multiple:
+        expand: true
+        cwd: 'app/'
+        src: ['*.coffee']
+        dest: 'app/'
+        ext: '.js'
+
+    stylus:
+      compile:
+        files:
+          'app.css': 'app.styl'
     jshint:
       options:
         curly: true
@@ -39,7 +59,7 @@ module.exports = (grunt) ->
       html: ['index.html']
       # css: ['**/*.css']
       options:
-        dirs: ['temp', 'dist']
+        dirs: ['temp', 'dest']
         dest:'superwolf'
     copy:
       main:
@@ -47,14 +67,14 @@ module.exports = (grunt) ->
           {src:['imgs/*'], dest:'dest/imgs/'}
         ]
 
-  grunt.loadNpmTasks 'grunt-contrib-less'
+  grunt.loadNpmTasks 'grunt-contrib-jade'
+  grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-usemin'
-  grunt.loadNpmTasks 'grunt-lessless'
-  grunt.loadNpmTasks 'grunt-oversprite'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   
   # Default task.
-  # grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin","oversprite"]
-  grunt.registerTask "default", ["lessless", "useminPrepare","concat","uglify","usemin", 'copy']
+  # grunt.registerTask "default", ["useminPrepare","concat","uglify","usemin", 'copy']
+  grunt.registerTask "default", ["jade","coffee", "stylus", "useminPrepare","concat","uglify","usemin", 'copy']
