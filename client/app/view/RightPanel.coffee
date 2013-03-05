@@ -3,6 +3,7 @@ Star.RightPanel = Backbone.View.extend
 
   initialize:(@option)->
     @blogListView = new Star.BlogListView
+    @sendChatForm = new Star.SendChatForm
     @initEvent()
   initEvent:->
     @option.eventBus.on('changeView',(e)=>
@@ -10,8 +11,5 @@ Star.RightPanel = Backbone.View.extend
     )
   render:->
     @$el.append(@blogListView.render().el)
-    blv = new Star.BlogListView
-    $('#middle-panel').append(blv.render().el)
-    scf = new Star.SendChatForm
-    $('#middle-panel').prepend(scf.render().el)
+    @$el.append(@sendChatForm.render().el)
     @

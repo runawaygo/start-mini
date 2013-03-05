@@ -61,6 +61,19 @@ module.exports = (grunt) ->
       options:
         dirs: ['temp', 'dest']
         dest:'superwolf'
+    manifest:
+      generate:
+        options:
+          basePath: "../"
+          cache: ["dest/star.min.js", "dest/star.css"]
+          network: ["http://*", "https://*"]
+          preferOnline: true
+          verbose: true
+          timestamp: true
+        src: [
+              "dest/imgs/*.png"
+        ],
+        dest: "cache.manifest"
     copy:
       main:
         files:[
@@ -72,9 +85,10 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-stylus'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-manifest'
   grunt.loadNpmTasks 'grunt-usemin'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   
   # Default task.
-  # grunt.registerTask "default", ["coffee"]
-  grunt.registerTask "default", ["jade","coffee", "stylus", "useminPrepare","concat","uglify","usemin", 'copy']
+  grunt.registerTask "default", ["manifest"]
+  # grunt.registerTask "default", ["jade","coffee", "stylus", "useminPrepare","concat","uglify","usemin", 'copy', 'manifest']
