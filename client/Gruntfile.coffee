@@ -29,7 +29,7 @@ module.exports = (grunt) ->
       glob_to_multiple:
         expand: true
         cwd: 'app/'
-        src: ['*.coffee']
+        src: ['**/*.coffee']
         dest: 'app/'
         ext: '.js'
 
@@ -64,7 +64,7 @@ module.exports = (grunt) ->
     copy:
       main:
         files:[
-          {src:['imgs/*'], dest:'dest/imgs/'}
+          {src:['imgs/*'], dest:'dest/'}
         ]
 
   grunt.loadNpmTasks 'grunt-contrib-jade'
@@ -76,5 +76,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-copy'
   
   # Default task.
-  # grunt.registerTask "default", ["useminPrepare","concat","uglify","usemin", 'copy']
+  # grunt.registerTask "default", ["coffee"]
   grunt.registerTask "default", ["jade","coffee", "stylus", "useminPrepare","concat","uglify","usemin", 'copy']
